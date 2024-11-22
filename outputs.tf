@@ -15,5 +15,5 @@ output "vm_instance_private_ip" {
 }
 
 output "vm_password_data" {
-  value = base64decode(aws_instance.windows-demo.password_data)
+  value = aws_instance.windows-demo.password_data
 }
