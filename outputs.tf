@@ -7,7 +7,7 @@ output "vm_windows_server_instance_public_dns" {
 }
 
 output "vm_windows_server_instance_public_ip" {
-  value = aws_eip.windows-eip.public_ip
+  value = aws_eip.windows-demo.public_ip
 }
 
 output "vm_windows_server_instance_private_ip" {
