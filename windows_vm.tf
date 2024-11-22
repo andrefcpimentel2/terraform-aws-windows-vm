@@ -33,6 +33,7 @@ resource "aws_instance" "windows-demo" {
   associate_public_ip_address = var.windows_associate_public_ip_address
   source_dest_check           = false
   key_name                    = aws_key_pair.windows-demo.id
+  get_password_data           = true
   user_data                   = data.template_file.userdata.rendered
   
   # root disk
