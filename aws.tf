@@ -62,7 +62,7 @@ tags = local.common_tags
     content {
       from_port   = 3389
       to_port     = 3389
-      protocol    = "RDP"
+      protocol    = "tcp"
       cidr_blocks = [ingress.value]
     }
   }
