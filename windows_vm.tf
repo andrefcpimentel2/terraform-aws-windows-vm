@@ -1,5 +1,5 @@
 # Get Windows Server 2022 AMI
-data "aws_ami" "2022_server" {
+data "aws_ami" "server_2022" {
   most_recent = true
   owners      = ["amazon"]
   filter {
