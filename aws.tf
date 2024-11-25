@@ -56,6 +56,13 @@ tags = local.common_tags
     }
   }
 
+    egress {
+    from_port   = 0
+    to_port     = 0
+    protocol    = "-1"
+    cidr_blocks = ["0.0.0.0/0"]
+  }
+
         # SSH access if host_access_ip has CIDR blocks
   dynamic "ingress" {
     for_each = var.host_access_ip
