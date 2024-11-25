@@ -68,9 +68,14 @@ tags = local.common_tags
   }
 }
 
+resource "tls_private_key" "windows-demo" {
+  algorithm = "RSA"
+  rsa_bits  = 4096
+}
+
 resource "aws_key_pair" "windows-demo" {
   key_name   = var.namespace
-  public_key = var.public_key
+  public_key = tls_private_key.windows-demo.public_key_openssh
 
   tags = local.common_tags
 }
