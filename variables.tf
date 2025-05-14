@@ -102,8 +102,22 @@ variable "namespace" {
   default     = "windows-demo"
 }
 
-variable "vault_url" {
+variable "vault_binary_url" {
   description = "vault binary URL"
   default     = "https://releases.hashicorp.com/vault/1.19.3/vault_1.19.3_windows_amd64.zip"
 }
 
+variable "vault_addr" {
+  description = "vault cluster URL"
+  default     = ""
+}
+
+variable "role_id" {
+  description = "vault app role id"
+  default     = ""
+}
+
+variable "role_secret" {
+  description = "vault app role secret"
+  default     = ""
+}
