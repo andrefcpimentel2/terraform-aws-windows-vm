@@ -37,22 +37,20 @@ auto_auth {
     type      = "approle"
 
     config = {
-      role_id_file_path = "c:\vault\roleid"
-      secret_id_file_path = "c:\vault\rolesecret"
+      role_id_file_path = "c:\\vault\\roleid"
+      secret_id_file_path = "c:\\vault\\rolesecret"
       remove_secret_id_file_after_reading = false
     }
   }
 }
 
-
 template {
-  contents             = "{{- with pkiCert \"pki_int/issue/example-dot-com\" \"ttl=24h\" \"common_name=foo.example.com\" -}}{{ .Cert }}{{- end }}"
-  destination  = "c:\vault\cert.crt"
-}
+  contents     = "{{- with pkiCert \"pki_int/issue/example-dot-com\" \"common_name=foo.example.com\" -}}{{ .Cert }}{{- end }}"
+  destination  = "c:\\vault\\cert.crt"
 
-"@ | tee "C:\vault\agent-config.hcl" 
+"@ | tee "C:\vault\agent-config.txt" 
 
-sc.exe create VaultAgent binPath="C:\vault\vault.exe agent -config=C:\vault\agent-config.hcl" displayName="Vault Agent" start=auto
+sc.exe create VaultAgent binPath="C:\vault\vault.exe agent -config=C:\vault\agent-config.txt" displayName="Vault Agent" start=auto
 
 
 # Restart machine
