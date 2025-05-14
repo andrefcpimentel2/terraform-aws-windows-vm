@@ -112,6 +112,11 @@ variable "vault_addr" {
   default     = ""
 }
 
+variable "vault_namespace" {
+  description = "vault cluster namespace"
+  default     = "admin"
+}
+
 variable "role_id" {
   description = "vault app role id"
   default     = ""

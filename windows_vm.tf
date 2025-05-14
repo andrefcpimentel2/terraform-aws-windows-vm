@@ -30,6 +30,7 @@ pid_file = "./pidfile"
 
 vault {
   address = "https://${var.vault_addr}:8200"
+  namespace = "${var.vault_namespace}"
 }
 auto_auth {
   method {
