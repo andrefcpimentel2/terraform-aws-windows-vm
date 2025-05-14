@@ -3,28 +3,24 @@ locals {
   common_tags = {
     Name      = var.name
     owner     = var.owner
-    se-region = var.se-region
     terraform = true
     purpose   = var.purpose
     ttl       = var.TTL
   }
 }
 
-variable "se-region" {
-  description = "Mandatory tags for the SE organization"
-}
-
-
 variable "purpose" {
   description = <<EOH
 purpose to be added to the default tags
 EOH
+default     = "demo"
 }
 
 variable "name" {
   description = <<EOH
 Name to be added to the default tags
 EOH
+default     = "AWS-WINDOWS_DEMO"
 }
 
 
@@ -35,6 +31,7 @@ variable "host_access_ip" {
 
 variable "owner" {
   description = "IAM user responsible for lifecycle of cloud resources used for training"
+  default     = ""
 }
 
 variable "created-by" {
@@ -57,9 +54,6 @@ variable "cidr_block" {
   default     = "10.1.1.0/24"
 }
 
-variable "public_key" {
-  description = "The contents of the SSH public key to use for connecting to the cluster."
-}
 
 variable "windows_instance_type" {
   type        = string
@@ -107,3 +101,9 @@ variable "namespace" {
 
   default     = "windows-demo"
 }
+
+variable "vault_url" {
+  description = "vault binary URL"
+  default     = "https://releases.hashicorp.com/vault/1.19.3/vault_1.19.3_windows_amd64.zip"
+}
+

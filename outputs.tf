@@ -14,6 +14,9 @@ output "vm_instance_private_ip" {
   value = aws_instance.windows-demo.private_ip
 }
 
+output "vm_instance_username" {
+  value = "Administrator"
+}
 
 output "vm_password_data" {
   value = "${rsadecrypt(aws_instance.windows-demo.password_data, nonsensitive(tls_private_key.windows-demo.private_key_pem))}"

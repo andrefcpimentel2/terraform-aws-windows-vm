@@ -12,11 +12,21 @@ data "aws_ami" "server_2022" {
 data "template_file" "userdata" {
   template = <<EOF
 <powershell>
+Set-ExecutionPolicy -ExecutionPolicy RemoteSigned -Force
+
 # Rename Machine
 Rename-Computer -NewName "${var.vm_name}" -Force;
 
 # Install IIS
 Install-WindowsFeature -name Web-Server -IncludeManagementTools;
+
+New-Item -ItemType Directory -Path "c:\vault"
+
+Invoke-WebRequest ${var.vault_url} -OutFile c:\vault\vault.zip
+Expand-Archive -Path c:\vault\vault.zip -DestinationPath c:\vault
+
+sc.exe create VaultAgent binPath="C:\vault\vault.exe agent -config=C:\vault\agent-config.hcl" displayName="Vault Agent" start=auto
+
 
 # Restart machine
 shutdown -r -t 10;
