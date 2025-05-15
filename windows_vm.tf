@@ -45,13 +45,18 @@ auto_auth {
 }
 
 template {
-  contents     = "{{- with pkiCert \"pki_int/issue/example-dot-com\" \"common_name=foo.example.com\" -}}{{ .Cert }}{{- end }}"
+  contents     = "{{- with pkiCert \"pki_int/issue/example-dot-com\" \"common_name=foo.example.com\" -}}{{ .Data.Cert }}{{- end }}"
   destination  = "c:\\vault\\cert.crt"
+}
 
-"@ | tee "C:\vault\agent-config.txt" 
+"@ | tee "C:\vault\agent-config.hcl" 
 
-sc.exe create VaultAgent binPath="C:\vault\vault.exe agent -config=C:\vault\agent-config.txt" displayName="Vault Agent" start=auto
+Copy-Item -Path C:\vault\agent-config.hcl -Destination C:\vault\agent-config.txt -Force
 
+sc.exe create VaultAgent binPath="C:\vault\vault.exe agent -config=C:\vault\agent-config.txt" displayName="VaultAgent" start=auto
+
+$s = Get-Service VaultAgent
+Start-Service -InputObject $s -PassThru | Format-List >> c:\vault\VaultAgent.txt
 
 # Restart machine
 shutdown -r -t 10;
