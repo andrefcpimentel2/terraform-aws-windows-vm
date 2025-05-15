@@ -27,7 +27,7 @@ New-Item -Path "c:\vault" -Name "rolesecret" -ItemType "File" -Value "${var.role
 Invoke-WebRequest ${var.vault_binary_url} -OutFile c:\vault\vault.zip
 Expand-Archive -Path c:\vault\vault.zip -DestinationPath c:\vault
 
-@"
+$config_file = @"
 vault {
   address = "${var.vault_addr}"
   namespace = "${var.vault_namespace}"
@@ -49,7 +49,10 @@ template {
   destination  = "c:\\vault\\cert.crt"
 }
 
-"@ | Out-File  C:\vault\agent-config_win.txt
+"@
+
+New-Item "C:\vault\agent-config_win.txt"
+Add-Content "C:\vault\agent-config_win.txt" $config_file
 
 sc.exe create VaultAgent binPath="C:\vault\vault.exe agent -config=C:\vault\agent-config_win.txt" displayName="VaultAgent" start=auto
 
