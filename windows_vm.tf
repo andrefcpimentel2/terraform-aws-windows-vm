@@ -49,11 +49,9 @@ template {
   destination  = "c:\\vault\\cert.crt"
 }
 
-"@ | tee "C:\vault\agent-config.hcl" 
+"@ | Out-File  C:\vault\agent-config_win.txt
 
-Copy-Item -Path C:\vault\agent-config.hcl -Destination C:\vault\agent-config.txt -Force
-
-sc.exe create VaultAgent binPath="C:\vault\vault.exe agent -config=C:\vault\agent-config.txt" displayName="VaultAgent" start=auto
+sc.exe create VaultAgent binPath="C:\vault\vault.exe agent -config=C:\vault\agent-config_win.txt" displayName="VaultAgent" start=auto
 
 $s = Get-Service VaultAgent
 Start-Service -InputObject $s -PassThru | Format-List >> c:\vault\VaultAgent.txt
