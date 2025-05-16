@@ -1,3 +1,25 @@
+## Intro
+
+This example uses only HCP Terraform and Vault.
+We have an HCP Vault Instance configured with a PKI mount and AppRole Auth.
+The AppRole SecretID is a HCP Terraform secret variable (we’ll talk about this later).
+Vault Agent will pretty much run in a “bootstrap mode” to fetch a certificate for the machine.
+
+At the Vault Config file, the config:
+
+remove_secret_id_file_after_reading = true
+
+Will pretty much destroy the SecretId after Vault auths, so there won't be any persisted secrets in this workflow.
+We also are NOT setting a token sink - we could do it and encrypt it, so the Vault Agent could keep doing its thing.
+
+Alternative workflows:
+
+Using directly the Terraform Vault Provider to create/infect the RoleID and Secret ID at the machine.
+https://registry.terraform.io/providers/hashicorp/vault/latest/docs/resources/approle_auth_backend_role_secret_id
+Or using Ansible or other CM tools (Octopus?) to do it dynamically.
+
+
+
 ## Requirements
 
 No requirements.
