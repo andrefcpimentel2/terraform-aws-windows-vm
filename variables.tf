@@ -127,7 +127,4 @@ variable "role_secret" {
   default     = ""
 }
 
-variable "vm_count" {
-  description = "number of VMs to deploy"
-  default     = "1"
-}
+

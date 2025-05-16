@@ -67,7 +67,6 @@ EOF
 
 
 resource "aws_instance" "windows-demo" {
-  count                       = var.vm_count
   ami                         = data.aws_ami.server_2022.id
   instance_type               = var.windows_instance_type
   subnet_id                   = aws_subnet.windows-demo.id
@@ -99,14 +98,12 @@ resource "aws_instance" "windows-demo" {
 }
 
 resource "aws_eip" "windows-demo" {
-  count        = var.vm_count
   domain       = "vpc"
   tags = local.common_tags
 }
 
 # Associate Elastic IP to Windows Server
 resource "aws_eip_association" "windows-demo" {
-  count         = var.vm_count
-  instance_id   = aws_instance.windows-demo[count.index].id
-  allocation_id = aws_eip.windows-demo[count.index].id
+  instance_id   = aws_instance.windows-demo.id
+  allocation_id = aws_eip.windows-demo.id
 }
