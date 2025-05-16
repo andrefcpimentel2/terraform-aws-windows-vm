@@ -99,12 +99,14 @@ resource "aws_instance" "windows-demo" {
 }
 
 resource "aws_eip" "windows-demo" {
+  count        = var.vm_count
   domain       = "vpc"
   tags = local.common_tags
 }
 
 # Associate Elastic IP to Windows Server
 resource "aws_eip_association" "windows-demo" {
-  instance_id   = aws_instance.windows-demo.id
-  allocation_id = aws_eip.windows-demo.id
+  count         = var.vm_count
+  instance_id   = aws_instance.windows-demo[count.index].id
+  allocation_id = aws_eip.windows-demo[count.index].id
 }
