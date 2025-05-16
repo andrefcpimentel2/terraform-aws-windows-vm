@@ -39,7 +39,7 @@ auto_auth {
     config = {
       role_id_file_path = "c:\\vault\\roleid"
       secret_id_file_path = "c:\\vault\\rolesecret"
-      remove_secret_id_file_after_reading = false
+      remove_secret_id_file_after_reading = true
     }
   }
 }
@@ -67,6 +67,7 @@ EOF
 
 
 resource "aws_instance" "windows-demo" {
+  count                       = var.vm_count
   ami                         = data.aws_ami.server_2022.id
   instance_type               = var.windows_instance_type
   subnet_id                   = aws_subnet.windows-demo.id

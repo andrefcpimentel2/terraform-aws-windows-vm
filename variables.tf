@@ -126,3 +126,8 @@ variable "role_secret" {
   description = "vault app role secret"
   default     = ""
 }
+
+variable "vm_count" {
+  description = "number of VMs to deploy"
+  default     = "1"
+}
